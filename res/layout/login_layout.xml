@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@android:color/holo_blue_light"
+    android:padding="20dp" >
+
+    <Button
+        android:id="@+id/login_with_foursquare"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/login_with_fouresquare"
+        android:onClick="loginFunction"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
