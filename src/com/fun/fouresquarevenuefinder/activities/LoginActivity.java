@@ -43,7 +43,7 @@ public class LoginActivity extends FragmentActivity {
 			Toast.makeText(getApplicationContext(),
 					"Please check internet connection", Toast.LENGTH_LONG)
 					.show();
-			loginBtn.setEnabled(false);
+			loginBtn.setEnabled(true);
 		}
 
 	}
@@ -69,9 +69,9 @@ public class LoginActivity extends FragmentActivity {
 					startActivityForResult(
 							intent,
 							FourSquareAPIHandler.REQUEST_CODE_FSQ_TOKEN_EXCHANGE);
-					loginBtn.setEnabled(true);
 
 				} else {
+					loginBtn.setEnabled(true);
 					Toast.makeText(getApplicationContext(),
 							"Please check internet connection",
 							Toast.LENGTH_LONG).show();
@@ -79,6 +79,7 @@ public class LoginActivity extends FragmentActivity {
 
 				Log.v("LoginActivity", "CodeString: " + codeString);
 			} else {
+				loginBtn.setEnabled(true);
 				Toast.makeText(getApplicationContext(),
 						"Authentication not successful.", Toast.LENGTH_LONG)
 						.show();
@@ -96,6 +97,7 @@ public class LoginActivity extends FragmentActivity {
 						MainActivity.class);
 				intent.putExtra(MainActivity.SESSION_ACCESS_TOKEN, accessToken);
 				startActivity(intent);
+				loginBtn.setEnabled(true);
 			}
 			break;
 		default:

@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Criteria;
@@ -24,7 +25,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -205,8 +205,10 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		@Override
 		public void onResponse(JSONObject response) {
 			if (response != null) {
-				if (progress.isShowing()) {
-					progress.dismiss();
+				if (progress != null) {
+					if (progress.isShowing()) {
+						progress.dismiss();
+					}
 				}
 				Toast.makeText(MainActivity.this, "Check in successful",
 						Toast.LENGTH_LONG).show();
@@ -242,14 +244,18 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
 		@Override
 		public void onErrorResponse(VolleyError error) {
-			if (progress.isShowing()) {
-				progress.dismiss();
+			if (progress != null) {
+				if (progress.isShowing()) {
+					progress.dismiss();
+				}
 			}
+
 			nearbyVenuesFound = false;
 		}
 
 	};
 
+	@SuppressLint("InflateParams")
 	private class CustomInfoWindowAdapter implements InfoWindowAdapter {
 		private View windowView;
 
@@ -284,7 +290,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			String venueID = venueBean.getVenueID();
 			venuesMap.put(venueID, venueBean);
 			String icon = venueBean.getCatImage();
-			String name = venueBean.getVenueName();
 			double longitude = venueBean.getVenueLongitude();
 			double latitude = venueBean.getVenueLatitude();
 			MarkerOptions markerOption = new MarkerOptions();
@@ -292,6 +297,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			markerOption.position(new LatLng(latitude, longitude));
 			// markerOption.title("\u200e" + name);
 			markerOption.snippet(venueBean.getVenueID());
+			@SuppressWarnings("unchecked")
 			ImageRequest request = new ImageRequest(icon,
 					new MarkerImageListener(markerOption, googleMap), 0, 0,
 					null, errorResponseHander);
